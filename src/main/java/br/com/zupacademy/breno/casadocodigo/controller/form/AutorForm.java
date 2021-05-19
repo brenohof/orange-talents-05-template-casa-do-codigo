@@ -24,7 +24,7 @@ public class AutorForm {
         this.descricao = descricao;
     }
 
-    public Autor converter() {
+    public Autor toModel() {
         return new Autor(nome, email, descricao);
     }
 }
