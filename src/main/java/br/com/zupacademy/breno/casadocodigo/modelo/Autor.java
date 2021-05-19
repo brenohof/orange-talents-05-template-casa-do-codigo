@@ -23,6 +23,10 @@ public class Autor {
     @NotNull
     private final LocalDateTime momentoDeRegistro = LocalDateTime.now();
 
+    @Deprecated
+    public Autor() {
+    }
+
     /**
      * @param nome não deve ser nulo, vazio ou em branco.
      * @param email não deve ser nulo, vazio ou em branco. Deve estar no formato de email e ser único.

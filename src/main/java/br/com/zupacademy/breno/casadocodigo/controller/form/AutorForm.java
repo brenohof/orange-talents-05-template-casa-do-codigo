@@ -27,4 +27,8 @@ public class AutorForm {
     public Autor toModel() {
         return new Autor(nome, email, descricao);
     }
+
+    public String getEmail() {
+        return this.email;
+    }
 }
