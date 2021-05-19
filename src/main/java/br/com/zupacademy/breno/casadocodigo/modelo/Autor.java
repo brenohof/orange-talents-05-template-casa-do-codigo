@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 public class Autor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull @NotBlank @NotEmpty
+    @NotNull @NotBlank
     private String nome;
-    @NotNull @NotBlank @NotEmpty @Email @Column(unique = true)
+    @NotNull @NotBlank @Email @Column(unique = true)
     private String email;
-    @NotNull @NotBlank @NotEmpty @Length(max=400)
+    @NotNull @NotBlank @Length(max=400)
     private String descricao;
     @NotNull
     private final LocalDateTime momentoDeRegistro = LocalDateTime.now();

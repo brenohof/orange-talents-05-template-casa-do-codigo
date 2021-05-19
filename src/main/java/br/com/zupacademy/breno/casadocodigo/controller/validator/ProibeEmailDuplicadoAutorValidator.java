@@ -1,6 +1,6 @@
 package br.com.zupacademy.breno.casadocodigo.controller.validator;
 
-import br.com.zupacademy.breno.casadocodigo.controller.form.AutorForm;
+import br.com.zupacademy.breno.casadocodigo.controller.form.AutorRequest;
 import br.com.zupacademy.breno.casadocodigo.modelo.Autor;
 import br.com.zupacademy.breno.casadocodigo.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class ProibeEmailDuplicadoAutorValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return AutorForm.class.isAssignableFrom(clazz);
+        return AutorRequest.class.isAssignableFrom(clazz);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class ProibeEmailDuplicadoAutorValidator implements Validator {
         if (errors.hasErrors())
             return;
 
-        AutorForm request = (AutorForm) target;
+        AutorRequest request = (AutorRequest) target;
         Optional<Autor> optional = autorRepository.findByEmail(request.getEmail());
 
         if (optional.isPresent()) {
