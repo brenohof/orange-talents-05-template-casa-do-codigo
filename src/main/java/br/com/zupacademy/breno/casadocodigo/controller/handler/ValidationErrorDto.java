@@ -1,4 +1,4 @@
-package br.com.zupacademy.breno.casadocodigo.handler;
+package br.com.zupacademy.breno.casadocodigo.controller.handler;
 
 public class ValidationErrorDto {
     private String campo;

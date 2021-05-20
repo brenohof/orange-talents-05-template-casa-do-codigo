@@ -1,7 +1,7 @@
 package br.com.zupacademy.breno.casadocodigo.controller;
 
 import br.com.zupacademy.breno.casadocodigo.controller.form.CategoriaRequest;
-import br.com.zupacademy.breno.casadocodigo.modelo.Categoria;
+import br.com.zupacademy.breno.casadocodigo.model.Categoria;
 import br.com.zupacademy.breno.casadocodigo.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package br.com.zupacademy.breno.casadocodigo.controller.form;
 
 import br.com.zupacademy.breno.casadocodigo.controller.validator.IfExists;
-import br.com.zupacademy.breno.casadocodigo.modelo.Autor;
+import br.com.zupacademy.breno.casadocodigo.model.Autor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;

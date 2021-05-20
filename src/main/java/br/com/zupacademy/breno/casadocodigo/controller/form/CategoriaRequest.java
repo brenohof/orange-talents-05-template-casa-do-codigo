@@ -1,7 +1,7 @@
 package br.com.zupacademy.breno.casadocodigo.controller.form;
 
 import br.com.zupacademy.breno.casadocodigo.controller.validator.IfExists;
-import br.com.zupacademy.breno.casadocodigo.modelo.Categoria;
+import br.com.zupacademy.breno.casadocodigo.model.Categoria;
 
 import javax.validation.constraints.NotBlank;
 

@@ -1,6 +1,6 @@
 package br.com.zupacademy.breno.casadocodigo.repository;
 
-import br.com.zupacademy.breno.casadocodigo.modelo.Autor;
+import br.com.zupacademy.breno.casadocodigo.model.Autor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

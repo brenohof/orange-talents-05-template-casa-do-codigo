@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class IfExistsValidator implements ConstraintValidator<IfExists, String> {
+public class IfExistsValidator implements ConstraintValidator<IfExists, Object> {
 
     @PersistenceContext
     private EntityManager em;
@@ -22,7 +22,7 @@ public class IfExistsValidator implements ConstraintValidator<IfExists, String> 
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
         Query query = em.createQuery("Select 1 from " + entity.getName() + " where " + field + " = :value");
 
         query.setParameter("value", value);
