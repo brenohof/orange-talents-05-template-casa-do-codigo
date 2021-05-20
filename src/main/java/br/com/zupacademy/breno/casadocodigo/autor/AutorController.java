@@ -1,12 +1,11 @@
-package br.com.zupacademy.breno.casadocodigo.controller;
+package br.com.zupacademy.breno.casadocodigo.autor;
 
-import br.com.zupacademy.breno.casadocodigo.controller.form.AutorRequest;
-import br.com.zupacademy.breno.casadocodigo.model.Autor;
-import br.com.zupacademy.breno.casadocodigo.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import javax.validation.Valid;
 
 @RestController
@@ -14,12 +13,13 @@ import javax.validation.Valid;
 public class AutorController {
 
     @Autowired
-    private AutorRepository repository;
+    private EntityManager entityManager;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> cadastrar(@Valid @RequestBody AutorRequest request) {
         Autor autor = request.toModel();
-        repository.save(autor);
+        entityManager.persist(autor);
         return ResponseEntity.ok().build();
     }
 }

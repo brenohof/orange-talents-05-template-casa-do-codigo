@@ -1,4 +1,4 @@
-package br.com.zupacademy.breno.casadocodigo.controller.handler;
+package br.com.zupacademy.breno.casadocodigo.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

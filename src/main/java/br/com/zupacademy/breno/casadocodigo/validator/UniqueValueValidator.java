@@ -1,4 +1,4 @@
-package br.com.zupacademy.breno.casadocodigo.controller.validator;
+package br.com.zupacademy.breno.casadocodigo.validator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class IfExistsValidator implements ConstraintValidator<IfExists, Object> {
+public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
 
     @PersistenceContext
     private EntityManager em;
@@ -16,7 +16,7 @@ public class IfExistsValidator implements ConstraintValidator<IfExists, Object> 
     private Class<?> entity;
 
     @Override
-    public void initialize(IfExists constraintAnnotation) {
+    public void initialize(UniqueValue constraintAnnotation) {
         this.field = constraintAnnotation.field();
         this.entity = constraintAnnotation.entity();
     }
@@ -28,7 +28,8 @@ public class IfExistsValidator implements ConstraintValidator<IfExists, Object> 
         query.setParameter("value", value);
 
         List<?> result = query.getResultList();
+        boolean isValid = result.isEmpty();
 
-        return result.isEmpty();
+        return isValid;
     }
 }

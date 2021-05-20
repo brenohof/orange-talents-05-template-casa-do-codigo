@@ -1,12 +1,11 @@
-package br.com.zupacademy.breno.casadocodigo.controller;
+package br.com.zupacademy.breno.casadocodigo.categoria;
 
-import br.com.zupacademy.breno.casadocodigo.controller.form.CategoriaRequest;
-import br.com.zupacademy.breno.casadocodigo.model.Categoria;
-import br.com.zupacademy.breno.casadocodigo.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import javax.validation.Valid;
 
 @RestController
@@ -14,12 +13,13 @@ import javax.validation.Valid;
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository repository;
+    private EntityManager entityManager;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> cadastrar(@Valid @RequestBody CategoriaRequest request) {
         Categoria categoria = request.toModel();
-        repository.save(categoria);
+        entityManager.persist(categoria);
         return ResponseEntity.ok().build();
     }
 }
