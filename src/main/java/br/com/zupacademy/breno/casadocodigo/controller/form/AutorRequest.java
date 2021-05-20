@@ -1,5 +1,6 @@
 package br.com.zupacademy.breno.casadocodigo.controller.form;
 
+import br.com.zupacademy.breno.casadocodigo.controller.validator.IfExists;
 import br.com.zupacademy.breno.casadocodigo.modelo.Autor;
 import org.hibernate.validator.constraints.Length;
 
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 public class AutorRequest {
     @NotBlank
     private String nome;
-    @NotBlank @Email
+    @NotBlank @Email @IfExists(entity = Autor.class, field = "email")
     private String email;
     @NotBlank @Length(max=400)
     private String descricao;

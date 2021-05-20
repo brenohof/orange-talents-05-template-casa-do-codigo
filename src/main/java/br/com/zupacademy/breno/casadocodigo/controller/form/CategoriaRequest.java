@@ -1,19 +1,20 @@
 package br.com.zupacademy.breno.casadocodigo.controller.form;
 
+import br.com.zupacademy.breno.casadocodigo.controller.validator.IfExists;
 import br.com.zupacademy.breno.casadocodigo.modelo.Categoria;
 
 import javax.validation.constraints.NotBlank;
 
 public class CategoriaRequest {
-    @NotBlank
+    @NotBlank @IfExists(entity = Categoria.class, field = "nome")
     private String nome;
-
-    public CategoriaRequest(@NotBlank String nome) {
-        this.nome = nome;
-    }
 
     public Categoria toModel() {
         return new Categoria(nome);
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getNome() {

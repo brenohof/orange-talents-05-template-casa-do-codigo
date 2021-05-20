@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public class Categoria {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull @NotBlank
+    @NotNull @NotBlank @Column(unique = true)
     private String nome;
 
     @Deprecated
