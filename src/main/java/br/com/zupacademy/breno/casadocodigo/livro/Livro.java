@@ -4,6 +4,7 @@ import br.com.zupacademy.breno.casadocodigo.autor.Autor;
 import br.com.zupacademy.breno.casadocodigo.categoria.Categoria;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +13,9 @@ import java.time.LocalDateTime;
 @Table(name = "livros")
 public class Livro {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lsbn;
+    private Long id;
+    @NotNull @Column(unique = true)
+    private @NotBlank String isbn;
     @NotNull @Column(unique = true)
     private String titulo;
     @NotNull @Size(max=500)
@@ -26,11 +29,16 @@ public class Livro {
     @NotNull @Future
     private LocalDate dataDePublicacao;
     @NotNull @ManyToOne
-    private Categoria categoria;
+    private @Valid Categoria categoria;
     @NotNull @ManyToOne
-    private Autor autor;
+    private @Valid Autor autor;
+
+    @Deprecated
+    public Livro() {
+    }
 
     /**
+     * @param isbn é obrigatório e único.
      * @param titulo é obrigatório e único.
      * @param resumo é obrigatório e no máximo 500 caracteres.
      * @param sumario é de tamanho livre.
@@ -40,7 +48,8 @@ public class Livro {
      * @param categoria não pode ser nulo.
      * @param autor não pode ser nulo.
      */
-    public Livro(String titulo, String resumo, String sumario, Double preco, Integer numeroDePaginas, LocalDate dataDePublicacao, Categoria categoria, Autor autor) {
+    public Livro(String isbn, String titulo, String resumo, String sumario, Double preco, Integer numeroDePaginas, LocalDate dataDePublicacao, Categoria categoria, Autor autor) {
+        this.isbn = isbn;
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -49,5 +58,13 @@ public class Livro {
         this.dataDePublicacao = dataDePublicacao;
         this.categoria = categoria;
         this.autor = autor;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 }
