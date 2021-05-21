@@ -1,6 +1,7 @@
 package br.com.zupacademy.breno.casadocodigo.livro;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class DetalhaLivroResponse {
     private String titulo;
@@ -12,7 +13,7 @@ public class DetalhaLivroResponse {
     private Double preco;
     private Integer numeroDePaginas;
     private String isbn;
-    private LocalDate dataDePublicacao;
+    private String dataDePublicacao;
 
     public DetalhaLivroResponse(Livro livro) {
         this.titulo = livro.getTitulo();
@@ -21,7 +22,8 @@ public class DetalhaLivroResponse {
         this.preco = livro.getPreco();
         this.numeroDePaginas = livro.getNumeroDePaginas();
         this.isbn = livro.getIsbn();
-        this.dataDePublicacao = livro.getDataDePublicacao();
+        this.dataDePublicacao = livro.getDataDePublicacao()
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));;
         this.nomeAutor = livro.getNomeAutor();
         this.nomeCategoria = livro.getNomeCategoria();
         this.descricaoAutor = livro.getDescricaoAutor();
@@ -67,7 +69,7 @@ public class DetalhaLivroResponse {
         return isbn;
     }
 
-    public LocalDate getDataDePublicacao() {
+    public String getDataDePublicacao() {
         return dataDePublicacao;
     }
 }
