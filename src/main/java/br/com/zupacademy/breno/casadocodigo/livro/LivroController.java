@@ -1,5 +1,6 @@
 package br.com.zupacademy.breno.casadocodigo.livro;
 
+import br.com.zupacademy.breno.casadocodigo.autor.Autor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,5 +29,15 @@ public class LivroController {
     public ResponseEntity<List<LivroResponse>> listar() {
         List<Livro> livros = entityManager.createQuery("from " + Livro.class.getName()).getResultList();
         return  ResponseEntity.ok(LivroResponse.toModel(livros));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalhaLivroResponse> detalhar(@PathVariable Long id){
+        Livro livro = entityManager.find(Livro.class, id);
+
+        if (livro == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(DetalhaLivroResponse.toModel(livro));
     }
 }
