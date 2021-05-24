@@ -4,7 +4,10 @@ import br.com.zupacademy.breno.casadocodigo.estado.Estado;
 import br.com.zupacademy.breno.casadocodigo.pais.Pais;
 import br.com.zupacademy.breno.casadocodigo.validator.ExistId;
 import br.com.zupacademy.breno.casadocodigo.validator.UniqueValue;
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -52,6 +55,32 @@ public class ClienteRequest {
         this.cep = cep;
     }
 
+    public Cliente toModel(EntityManager entityManager) {
+        Pais pais = entityManager.find(Pais.class, paisId);
+
+        Assert.state(pais != null, "Você esta querendo cadastrar um cliente para um pais que nao existe no banco "+paisId);
+
+        Query query = entityManager.createQuery("from Estado where pais_id = :id");
+        query.setParameter("id", paisId);
+
+        if (query.getResultList().isEmpty())
+            return new Cliente(this, pais);
+
+        Estado estado = entityManager.find(Estado.class, estadoId);
+
+        Assert.state(estado != null, "Você esta querendo cadastrar um cliente para um estado que nao existe no banco "+estadoId);
+
+        return new Cliente(this, pais, estado);
+    }
+
+    public Long getPaisId() {
+        return paisId;
+    }
+
+    public Long getEstadoId() {
+        return estadoId;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -86,26 +115,5 @@ public class ClienteRequest {
 
     public String getCep() {
         return cep;
-    }
-
-    public Cliente toModel(EntityManager entityManager) {
-        Pais pais = entityManager.find(Pais.class, paisId);
-
-        Assert.state(pais != null, "Você esta querendo cadastrar um cliente para um pais que nao existe no banco "+paisId);
-
-        Query query = entityManager.createQuery("from Estado where pais_id = :id");
-        query.setParameter("id", paisId);
-
-        if (query.getResultList().isEmpty())
-            return new Cliente(this, pais);
-
-        Estado estado = entityManager.find(Estado.class, estadoId);
-
-        Assert.state(estado != null, "Você esta querendo cadastrar um cliente para um estado que nao existe no banco "+estadoId);
-
-        if (estado != null && estado.pertence(pais))
-            return new Cliente(this, pais, estado);
-
-        return null;
     }
 }
