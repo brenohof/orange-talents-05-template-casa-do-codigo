@@ -21,7 +21,16 @@ public class EstadoController {
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@Valid @RequestBody EstadoRequest request) {
-        @Valid Estado estado = request.toModel(entityManager);
+        Query query = entityManager.createQuery("select 1 from " + Estado.class.getName()
+                + " where nome = :nome and pais_id = :paisId");
+
+        query.setParameter("nome", request.getNome());
+        query.setParameter("paisId", request.getPaisId());
+
+        if (!query.getResultList().isEmpty())
+            ResponseEntity.badRequest().build();
+
+        Estado estado = request.toModel(entityManager);
         entityManager.persist(estado);
         return ResponseEntity.ok().build();
     }

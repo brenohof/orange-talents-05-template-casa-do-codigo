@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 public class EstadoRequest {
-    @NotBlank @UniqueValue(entity = Estado.class, field = "nome")
+    @NotBlank
     private String nome;
     @NotNull @Positive @ExistId(entity = Pais.class)
     private Long paisId;
@@ -24,6 +24,14 @@ public class EstadoRequest {
     public EstadoRequest(String nome, Long paisId) {
         this.nome = nome;
         this.paisId = paisId;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Long getPaisId() {
+        return paisId;
     }
 
     public Estado toModel(EntityManager entityManager) {

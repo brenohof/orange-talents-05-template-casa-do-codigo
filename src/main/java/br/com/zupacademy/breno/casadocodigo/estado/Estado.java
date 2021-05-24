@@ -17,8 +17,18 @@ public class Estado {
     @NotNull @NotBlank @Column(unique = true)
     private String nome;
 
+
+    @Deprecated
+    public Estado() {}
+
     public Estado(@NotNull Pais pais,@NotBlank String nome) {
         this.pais = pais;
         this.nome = nome;
+    }
+
+    public boolean pertence(Pais pais) {
+        if (this.pais.getId() == pais.getId())
+            return true;
+        return  false;
     }
 }
